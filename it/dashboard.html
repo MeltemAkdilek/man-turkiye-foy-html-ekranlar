@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>IT Dashboard - FÖY</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Can AKIN</div>
+                    <div class="user-role">IT</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="../admin/bakim.html">Bakım Ekranları</a></li>
+                <li><a href="../admin/raporlar.html">Raporlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">IT Dashboard</h1>
+            <p class="page-description">Sistem genel durumu (Admin'e benzer)</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="stat-card info">
+                <div class="stat-label">Toplam Öneri</div>
+                <div class="stat-value">1,248</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-label">Gerçekleşen</div>
+                <div class="stat-value">856</div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-label">Çalışılıyor</div>
+                <div class="stat-value">312</div>
+            </div>
+
+            <div class="stat-card danger">
+                <div class="stat-label">Gerçekleşemedi</div>
+                <div class="stat-value">80</div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>ℹ️ Bilgi:</strong> IT kullanıcısı olarak tüm verileri görüntüleyebilir, bakım ekranlarına erişebilirsiniz. FÖY oluşturma yetkiniz yoktur.
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+</body>
+</html>

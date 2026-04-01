@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bakım Ekranları - FÖY</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html" class="active">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">⚙️ Bakım Ekranları</h1>
+            <p class="page-description">Sistem yönetimi ve konfigürasyon</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px;">
+            <div class="card">
+                <div class="card-header">👥 Personel Listesi</div>
+                <div class="card-body">
+                    <p>Aktif çalışan bakımı, yeni kullanıcı ekleme</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">🎯 Hedef Tanımlama</div>
+                <div class="card-body">
+                    <p>Yıllık ve aylık hedeflerin girilmesi</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">🏢 Destek Bölümleri / SL</div>
+                <div class="card-body">
+                    <p>Departman sorumluları ve hiyerarşi</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">📅 Tatil Takvimi</div>
+                <div class="card-body">
+                    <p>Resmi tatiller ve iş günü hesaplaması</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">🔑 Yetki Grubu / Atama</div>
+                <div class="card-body">
+                    <p>Kullanıcı yetki grupları oluşturma</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">🔔 Duyuru ve Uyarılar</div>
+                <div class="card-body">
+                    <p>Sistem içi bildirimler</p>
+                    <button class="btn btn-primary w-100 mt-20">Yönet</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+</body>
+</html>

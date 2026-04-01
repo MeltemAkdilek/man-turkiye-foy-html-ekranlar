@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FÖY Sistemi - HTML Ekran Prototipler</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .hero {
+            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .screen-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .screen-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border-color: var(--secondary-color);
+        }
+
+        .screen-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .screen-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .screen-desc {
+            font-size: 14px;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .screen-role {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .role-admin {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .role-koordinator {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .role-yonetici {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .role-it {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+
+        .screen-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .screen-link:hover {
+            background-color: var(--primary-color);
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        .info-box {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <main class="main-content" style="margin-top: 30px;">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>🏢 MAN TÜRKİYE A.Ş.</h1>
+            <h2 style="font-size: 32px; margin-bottom: 15px;">FÖY - Fikir Öneri Yönetimi Sistemi</h2>
+            <p>HTML Ekran Prototipi Koleksiyonu</p>
+            <p style="font-size: 14px; margin-top: 10px; opacity: 0.8;">Geliştirici: RG Labs | Tarih: Nisan 2026</p>
+        </div>
+
+        <!-- Proje Bilgisi -->
+        <div class="info-box">
+            <h3>📋 Proje Hakkında</h3>
+            <p>Bu HTML prototipler, FÖY (Fikir Öneri Yönetimi) sisteminin yeni platforma taşınması projesi kapsamında hazırlanmıştır.</p>
+            <p style="margin-top: 10px;"><strong>Özellikler:</strong></p>
+            <ul>
+                <li>Responsive (mobil uyumlu) tasarım</li>
+                <li>Modern ve kullanıcı dostu arayüz</li>
+                <li>Rol tabanlı ekran yapıları (Admin, Koordinatör, Yönetici, IT)</li>
+                <li>İnteraktif formlar ve tablolar</li>
+                <li>Gerçekçi veri örnekleri</li>
+                <li>MAN Türkiye kurumsal renk paleti</li>
+            </ul>
+        </div>
+
+        <!-- Admin Ekranları -->
+        <h2 class="section-title">👨‍💼 Admin Ekranları</h2>
+        <div class="screens-grid">
+            <div class="screen-card">
+                <div class="screen-icon">📊</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">Dashboard (Kokpit)</h3>
+                <p class="screen-desc">
+                    Özet istatistikler, grafikler, top 10 listeleri, öneri kazançları ve bekleyen öneriler.
+                </p>
+                <a href="admin/dashboard.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📝</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">FÖY Oluştur</h3>
+                <p class="screen-desc">
+                    Yeni öneri kaydı oluşturma formu. Kağıt formdan alınan bilgilerin sisteme girilmesi.
+                </p>
+                <a href="admin/foy-olustur.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📋</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">FÖY Listesi</h3>
+                <p class="screen-desc">
+                    Tüm önerilerin listelendiği, filtreleme ve arama yapılabilen ekran.
+                </p>
+                <a href="admin/foy-listesi.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📈</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">Raporlar</h3>
+                <p class="screen-desc">
+                    13 rapor: aylık öneri takip, birim bazlı kırılım, eskalasyon raporu vb.
+                </p>
+                <a href="admin/raporlar.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">⚙️</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">Bakım Ekranları</h3>
+                <p class="screen-desc">
+                    Personel yönetimi, hedef tanımlama, destek bölümleri, tatil takvimi vb.
+                </p>
+                <a href="admin/bakim.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📦</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">Arşiv</h3>
+                <p class="screen-desc">
+                    Geçmiş yılların öneri kayıtlarına erişim ve dosya indirme.
+                </p>
+                <a href="admin/arsiv.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">🏆</div>
+                <span class="screen-role role-admin">Admin</span>
+                <h3 class="screen-title">Patent Adayları</h3>
+                <p class="screen-desc">
+                    Patent adayı olarak işaretlenen önerilerin özel listesi. (YENİ)
+                </p>
+                <a href="admin/patent-adaylari.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+        </div>
+
+        <!-- Koordinatör Ekranları -->
+        <h2 class="section-title">👔 Koordinatör Ekranları</h2>
+        <div class="screens-grid">
+            <div class="screen-card">
+                <div class="screen-icon">🏠</div>
+                <span class="screen-role role-koordinator">Koordinatör</span>
+                <h3 class="screen-title">Giriş Ekranı</h3>
+                <p class="screen-desc">
+                    FÖY sistemi hakkında bilgi ve 30 gün kuralı hatırlatması içeren karşılama ekranı.
+                </p>
+                <a href="koordinator/giris.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📋</div>
+                <span class="screen-role role-koordinator">Koordinatör</span>
+                <h3 class="screen-title">IDL Listesi</h3>
+                <p class="screen-desc">
+                    Departmana atanan önerilerin listesi. Açık gün sayısı ve renk kodlu uyarılar.
+                </p>
+                <a href="koordinator/idl-listesi.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">⚖️</div>
+                <span class="screen-role role-koordinator">Koordinatör</span>
+                <h3 class="screen-title">Öneri Değerlendirme</h3>
+                <p class="screen-desc">
+                    Öneri detaylarını görüntüleme ve karar verme: Gerçekleştirildi / Red / Transfer.
+                </p>
+                <a href="koordinator/degerlendirme.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📈</div>
+                <span class="screen-role role-koordinator">Koordinatör</span>
+                <h3 class="screen-title">Raporlar</h3>
+                <p class="screen-desc">
+                    Destek bölüm öneri raporu. Yalnızca kendi departmanına ait veriler.
+                </p>
+                <a href="#" class="screen-link" style="opacity: 0.5; cursor: not-allowed;">Yakında</a>
+            </div>
+        </div>
+
+        <!-- Yönetici Ekranları -->
+        <h2 class="section-title">🎯 Yönetici Ekranları</h2>
+        <div class="screens-grid">
+            <div class="screen-card">
+                <div class="screen-icon">📊</div>
+                <span class="screen-role role-yonetici">Yönetici</span>
+                <h3 class="screen-title">Dashboard</h3>
+                <p class="screen-desc">
+                    Kendi ekibine ait öneri sayıları, istatistikler ve destek bekleyen öneriler.
+                </p>
+                <a href="yonetici/dashboard.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📈</div>
+                <span class="screen-role role-yonetici">Yönetici</span>
+                <h3 class="screen-title">Raporlar</h3>
+                <p class="screen-desc">
+                    Ekip bazlı raporlar. Koordinatöre göre daha geniş kapsamlı.
+                </p>
+                <a href="admin/raporlar.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+        </div>
+
+        <!-- IT Ekranları -->
+        <h2 class="section-title">💻 IT Ekranları</h2>
+        <div class="screens-grid">
+            <div class="screen-card">
+                <div class="screen-icon">📊</div>
+                <span class="screen-role role-it">IT</span>
+                <h3 class="screen-title">Dashboard</h3>
+                <p class="screen-desc">
+                    Admin'e benzer dashboard erişimi. Veri girişi yetkisi yok.
+                </p>
+                <a href="it/dashboard.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">⚙️</div>
+                <span class="screen-role role-it">IT</span>
+                <h3 class="screen-title">Bakım Ekranları</h3>
+                <p class="screen-desc">
+                    Admin panelindeki bakım ekranlarına erişim.
+                </p>
+                <a href="admin/bakim.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+
+            <div class="screen-card">
+                <div class="screen-icon">📈</div>
+                <span class="screen-role role-it">IT</span>
+                <h3 class="screen-title">Raporlar</h3>
+                <p class="screen-desc">
+                    Tüm raporlara erişim yetkisi.
+                </p>
+                <a href="admin/raporlar.html" class="screen-link">Ekranı Görüntüle →</a>
+            </div>
+        </div>
+
+        <!-- Teknik Bilgiler -->
+        <div class="info-box" style="margin-top: 50px;">
+            <h3>🔧 Teknik Bilgiler</h3>
+            <p><strong>Teknolojiler:</strong></p>
+            <ul>
+                <li>HTML5</li>
+                <li>CSS3 (CSS Variables, Grid, Flexbox)</li>
+                <li>Vanilla JavaScript (ES6+)</li>
+                <li>Responsive Design</li>
+            </ul>
+            <p style="margin-top: 15px;"><strong>Özellikler:</strong></p>
+            <ul>
+                <li>Drag & Drop dosya yükleme</li>
+                <li>Modal popup'lar</li>
+                <li>İnteraktif formlar ve validasyonlar</li>
+                <li>Dinamik tablo filtreleme</li>
+                <li>Renk kodlu uyarı sistemi</li>
+            </ul>
+        </div>
+
+        <!-- İletişim -->
+        <div style="background: linear-gradient(135deg, #003366 0%, #0066cc 100%); color: white; padding: 40px; border-radius: 12px; text-align: center;">
+            <h3 style="font-size: 24px; margin-bottom: 15px;">📧 İletişim</h3>
+            <p style="margin-bottom: 10px;"><strong>MAN Türkiye FIPC:</strong> Ayça Gürçelik</p>
+            <p style="margin-bottom: 10px;"><strong>RG Labs İş Analistleri:</strong> Eylül Gülbin Yılmaz, Meltem Akdilek</p>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Proje Kodu: DP-36, DP-55</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+        <p>HTML Prototip Koleksiyonu | Geliştirici: RG Labs</p>
+    </footer>
+</body>
+</html>

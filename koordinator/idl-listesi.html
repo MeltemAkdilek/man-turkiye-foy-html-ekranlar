@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDL Listesi - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .filter-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .days-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .days-badge {
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 13px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .days-green {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .days-yellow {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .days-red {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .priority-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .priority-high { background-color: #dc3545; }
+        .priority-medium { background-color: #ffc107; }
+        .priority-low { background-color: #28a745; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Mehmet YILMAZ</div>
+                    <div class="user-role">Koordinatör - Üretim</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="giris.html">Ana Sayfa</a></li>
+                <li><a href="idl-listesi.html" class="active">IDL Listesi</a></li>
+                <li><a href="degerlendirme.html">Değerlendirme</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">IDL - Destek Bölümü Öneri Listesi</h1>
+            <p class="page-description">Üretim departmanına atanan öneriler ve tasklar</p>
+            <div class="breadcrumb">
+                <a href="giris.html">Ana Sayfa</a> / IDL Listesi
+            </div>
+        </div>
+
+        <!-- Önemli Uyarı -->
+        <div class="alert alert-warning">
+            <strong>⏰ Önemli Hatırlatma:</strong> Açık önerilerin <strong>30 iş günü içinde</strong> kapatılması gerekmektedir.
+            <br><small>🟢 1-2 hafta: Normal | 🟡 2-3 hafta: Dikkat | 🔴 4+ hafta: Kritik</small>
+        </div>
+
+        <!-- Özet İstatistikler -->
+        <div class="dashboard-grid">
+            <div class="stat-card info">
+                <div class="stat-label">Toplam Açık Task</div>
+                <div class="stat-value">18</div>
+                <div class="stat-description">Değerlendirme bekleyen</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-label">Normal Süreçte</div>
+                <div class="stat-value">9</div>
+                <div class="stat-description">1-2 hafta içinde</div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-label">Dikkat Gerektiren</div>
+                <div class="stat-value">6</div>
+                <div class="stat-description">2-3 hafta geçmiş</div>
+            </div>
+
+            <div class="stat-card danger">
+                <div class="stat-label">Kritik Durum</div>
+                <div class="stat-value">3</div>
+                <div class="stat-description">4+ hafta geçmiş</div>
+            </div>
+        </div>
+
+        <!-- Filtre Bölümü -->
+        <div class="filter-section">
+            <h3 style="margin-bottom: 15px;">🔍 Filtrele</h3>
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label class="form-label">Öneri Numarası</label>
+                    <input type="text" class="form-control" placeholder="FÖY-2026-xxxx">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Öneren Personel</label>
+                    <input type="text" class="form-control" placeholder="Ad Soyad">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Açık Gün Durumu</label>
+                    <select class="form-control">
+                        <option value="">Tümü</option>
+                        <option value="green">Normal (1-14 gün)</option>
+                        <option value="yellow">Dikkat (15-21 gün)</option>
+                        <option value="red">Kritik (22+ gün)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tarih Aralığı</label>
+                    <input type="date" class="form-control">
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-primary">Filtrele</button>
+                <button class="btn btn-secondary">Temizle</button>
+            </div>
+        </div>
+
+        <!-- Task Listesi Tablosu -->
+        <div class="card">
+            <div class="card-header">
+                📋 Bekleyen Tasklar (18 adet)
+                <div>
+                    <button class="btn btn-secondary" style="font-size: 12px; padding: 6px 12px;">Excel İndir</button>
+                </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;"></th>
+                                <th>Öneri No</th>
+                                <th>Öneri Tarihi</th>
+                                <th>Öneren Personel</th>
+                                <th>Konu</th>
+                                <th>Ana Bölüm</th>
+                                <th style="text-align: center;">Açık Gün</th>
+                                <th style="width: 200px;">Aksiyonlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="priority-indicator priority-high"></span></td>
+                                <td><strong>FÖY-2026-1245</strong></td>
+                                <td>28.02.2026</td>
+                                <td>Ahmet ÇELIK</td>
+                                <td>Hat 3 verimlilik artırma</td>
+                                <td><span class="badge badge-secondary">Montaj</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-red">32 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-high"></span></td>
+                                <td><strong>FÖY-2026-1242</strong></td>
+                                <td>05.03.2026</td>
+                                <td>Zeynep ARSLAN</td>
+                                <td>Malzeme israf azaltma</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-red">27 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-high"></span></td>
+                                <td><strong>FÖY-2026-1238</strong></td>
+                                <td>10.03.2026</td>
+                                <td>Mustafa KARA</td>
+                                <td>Enerji optimizasyonu</td>
+                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-red">22 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-medium"></span></td>
+                                <td><strong>FÖY-2026-1235</strong></td>
+                                <td>15.03.2026</td>
+                                <td>Elif YILDIRIM</td>
+                                <td>Kalite kontrol iyileştirme</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-yellow">17 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-medium"></span></td>
+                                <td><strong>FÖY-2026-1232</strong></td>
+                                <td>18.03.2026</td>
+                                <td>Can AKIN</td>
+                                <td>Ergonomi düzenlemesi</td>
+                                <td><span class="badge badge-secondary">İK</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-yellow">14 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-low"></span></td>
+                                <td><strong>FÖY-2026-1230</strong></td>
+                                <td>20.03.2026</td>
+                                <td>Selin ÜNAL</td>
+                                <td>Stok yönetimi optimizasyonu</td>
+                                <td><span class="badge badge-secondary">Lojistik</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-green">12 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-low"></span></td>
+                                <td><strong>FÖY-2026-1228</strong></td>
+                                <td>22.03.2026</td>
+                                <td>Burak YILMAZ</td>
+                                <td>5S uygulama alanı genişletme</td>
+                                <td><span class="badge badge-secondary">Üretim</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-green">10 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-low"></span></td>
+                                <td><strong>FÖY-2026-1227</strong></td>
+                                <td>25.03.2026</td>
+                                <td>Aylin KAYA</td>
+                                <td>Poka-yoke sistemi kurulumu</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-green">7 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-low"></span></td>
+                                <td><strong>FÖY-2026-1226</strong></td>
+                                <td>27.03.2026</td>
+                                <td>Emre DEMİR</td>
+                                <td>Takım bakım süre azaltma</td>
+                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-green">5 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="priority-indicator priority-low"></span></td>
+                                <td><strong>FÖY-2026-1225</strong></td>
+                                <td>29.03.2026</td>
+                                <td>Deniz ÖZKAN</td>
+                                <td>Dijital form geçişi</td>
+                                <td><span class="badge badge-secondary">IT</span></td>
+                                <td style="text-align: center;">
+                                    <div class="days-cell" style="justify-content: center;">
+                                        <span class="days-badge days-green">3 gün</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-success">Değerlendir</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <div>Toplam 18 kayıt gösteriliyor (Sayfa 1 / 1)</div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" disabled>« Önceki</button>
+                <button class="btn btn-primary">1</button>
+                <button class="btn btn-secondary" disabled>Sonraki »</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        // Değerlendir butonları
+        document.querySelectorAll('.btn-success').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const oneriNo = row.querySelector('strong').textContent;
+                window.location.href = `degerlendirme.html?no=${oneriNo}`;
+            });
+        });
+
+        // Detay butonları
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const oneriNo = row.querySelector('strong').textContent;
+                alert(`${oneriNo} numaralı öneri detayları gösterilecek`);
+            });
+        });
+    </script>
+</body>
+</html>

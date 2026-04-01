@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arşiv - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .year-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .year-card {
+            background: white;
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px 35px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            min-width: 150px;
+        }
+
+        .year-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            border-color: var(--secondary-color);
+        }
+
+        .year-card.active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .year-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .year-stats {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+
+        .archive-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html" class="active">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">📦 Arşiv - Geçmiş Yıllar</h1>
+            <p class="page-description">Önceki yılların FÖY kayıtlarına erişim</p>
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a> / Arşiv
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>ℹ️ Bilgi:</strong> Her yıl geçişinde veriler otomatik olarak arşivlenir. Son 6 yıl görüntülenebilir, veriler 10 yıl saklanır.
+        </div>
+
+        <h3 style="margin-bottom: 20px; color: var(--primary-color);">Yıl Seçiniz:</h3>
+        <div class="year-selector">
+            <div class="year-card active" data-year="2025">
+                <div class="year-number">2025</div>
+                <div class="year-stats">1,156 öneri</div>
+            </div>
+            <div class="year-card" data-year="2024">
+                <div class="year-number">2024</div>
+                <div class="year-stats">1,089 öneri</div>
+            </div>
+            <div class="year-card" data-year="2023">
+                <div class="year-number">2023</div>
+                <div class="year-stats">986 öneri</div>
+            </div>
+            <div class="year-card" data-year="2022">
+                <div class="year-number">2022</div>
+                <div class="year-stats">852 öneri</div>
+            </div>
+            <div class="year-card" data-year="2021">
+                <div class="year-number">2021</div>
+                <div class="year-stats">743 öneri</div>
+            </div>
+            <div class="year-card" data-year="2020">
+                <div class="year-number">2020</div>
+                <div class="year-stats">689 öneri</div>
+            </div>
+        </div>
+
+        <h3 style="margin: 40px 0 20px; color: var(--primary-color);">2025 Yılı Özet İstatistikler</h3>
+        <div class="archive-stats">
+            <div class="stat-card info">
+                <div class="stat-label">Toplam Öneri</div>
+                <div class="stat-value">1,156</div>
+            </div>
+            <div class="stat-card success">
+                <div class="stat-label">Gerçekleşen</div>
+                <div class="stat-value">801</div>
+            </div>
+            <div class="stat-card danger">
+                <div class="stat-label">Gerçekleşemeyen</div>
+                <div class="stat-value">68</div>
+            </div>
+            <div class="stat-card warning">
+                <div class="stat-label">Toplam Kazanç</div>
+                <div class="stat-value">€825K</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #9c27b0;">
+                <div class="stat-label">Katılım Oranı</div>
+                <div class="stat-value">98%</div>
+            </div>
+            <div class="stat-card" style="border-left-color: #ff9800;">
+                <div class="stat-label">Ort. Kapatma Süresi</div>
+                <div class="stat-value">24 gün</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                📋 2025 Yılı FÖY Kayıtları
+                <div>
+                    <button class="btn btn-success" style="font-size: 12px; padding: 6px 12px;">📥 Tümünü Excel İndir</button>
+                </div>
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Öneri No</th>
+                                <th>Tarih</th>
+                                <th>Öneren</th>
+                                <th>Konu</th>
+                                <th>Departman</th>
+                                <th>Statü</th>
+                                <th>Kazanç</th>
+                                <th>Aksiyonlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>FÖY-2025-1156</strong></td>
+                                <td>28.12.2025</td>
+                                <td>Ali YILMAZ</td>
+                                <td>Yıl sonu verimlilik analizi</td>
+                                <td><span class="badge badge-secondary">Planlama</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td>€15,200</td>
+                                <td>
+                                    <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
+                                    <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>FÖY-2025-1155</strong></td>
+                                <td>25.12.2025</td>
+                                <td>Fatma KAYA</td>
+                                <td>Envanter yönetim iyileştirme</td>
+                                <td><span class="badge badge-secondary">Lojistik</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td>€22,500</td>
+                                <td>
+                                    <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
+                                    <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>FÖY-2025-1154</strong></td>
+                                <td>20.12.2025</td>
+                                <td>Mehmet DEMİR</td>
+                                <td>Enerji tasarrufu projesi</td>
+                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td>€48,000</td>
+                                <td>
+                                    <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
+                                    <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>FÖY-2025-1153</strong></td>
+                                <td>18.12.2025</td>
+                                <td>Ayşe ÖZ</td>
+                                <td>Kalite kontrol otomasyonu</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td><span class="badge badge-danger">Gerçekleştirilemedi</span></td>
+                                <td>-</td>
+                                <td>
+                                    <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
+                                    <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>FÖY-2025-1152</strong></td>
+                                <td>15.12.2025</td>
+                                <td>Can ARSLAN</td>
+                                <td>Montaj hattı reorganizasyonu</td>
+                                <td><span class="badge badge-secondary">Montaj</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td>€35,700</td>
+                                <td>
+                                    <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
+                                    <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <div>Sayfa 1 / 47 (1,156 kayıt)</div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" disabled>« Önceki</button>
+                <button class="btn btn-primary">1</button>
+                <button class="btn btn-secondary">2</button>
+                <button class="btn btn-secondary">3</button>
+                <button class="btn btn-secondary">...</button>
+                <button class="btn btn-secondary">Sonraki »</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.year-card').forEach(card => {
+            card.addEventListener('click', function() {
+                document.querySelectorAll('.year-card').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const year = this.getAttribute('data-year');
+                alert(`${year} yılı verileri yükleniyor...`);
+            });
+        });
+    </script>
+</body>
+</html>

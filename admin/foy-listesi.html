@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FÖY Listesi - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .quick-stat {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quick-stat-label {
+            font-size: 12px;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+
+        .quick-stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .actions-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .bulk-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .status-filter {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 8px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .filter-chip:hover {
+            border-color: var(--secondary-color);
+        }
+
+        .filter-chip.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .filter-chip .count {
+            display: inline-block;
+            margin-left: 5px;
+            padding: 2px 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 10px;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html" class="active">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">FÖY Listesi - Tüm Öneriler</h1>
+            <p class="page-description">Sistemdeki tüm önerileri görüntüle, filtrele ve yönet</p>
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a> / FÖY Listesi
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="quick-stats">
+            <div class="quick-stat" style="border-left-color: var(--info-color);">
+                <div class="quick-stat-label">Toplam Öneri</div>
+                <div class="quick-stat-value">1,248</div>
+            </div>
+            <div class="quick-stat" style="border-left-color: var(--warning-color);">
+                <div class="quick-stat-label">Çalışılıyor</div>
+                <div class="quick-stat-value">312</div>
+            </div>
+            <div class="quick-stat" style="border-left-color: var(--success-color);">
+                <div class="quick-stat-label">Gerçekleşen</div>
+                <div class="quick-stat-value">856</div>
+            </div>
+            <div class="quick-stat" style="border-left-color: var(--danger-color);">
+                <div class="quick-stat-label">Gerçekleşemeyen</div>
+                <div class="quick-stat-value">80</div>
+            </div>
+        </div>
+
+        <!-- Status Filters -->
+        <div class="status-filter">
+            <div class="filter-chip active" data-status="all">
+                Tümü <span class="count">1,248</span>
+            </div>
+            <div class="filter-chip" data-status="calisiliyor">
+                🟡 Çalışılıyor <span class="count">312</span>
+            </div>
+            <div class="filter-chip" data-status="gerceklesen">
+                🟢 Gerçekleşen <span class="count">856</span>
+            </div>
+            <div class="filter-chip" data-status="gerceklesemeyen">
+                🔴 Gerçekleşemeyen <span class="count">80</span>
+            </div>
+            <div class="filter-chip" data-status="patent">
+                🏆 Patent Adayı <span class="count">12</span>
+            </div>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="card" style="margin-top: 20px;">
+            <div class="card-header">
+                🔍 Gelişmiş Arama ve Filtrele
+            </div>
+            <div class="card-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Öneri Numarası</label>
+                        <input type="text" class="form-control" placeholder="FÖY-2026-xxxx">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Öneren Personel</label>
+                        <input type="text" class="form-control" placeholder="Ad Soyad veya Sicil">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Departman</label>
+                        <select class="form-control">
+                            <option value="">Tümü</option>
+                            <option value="uretim">Üretim</option>
+                            <option value="montaj">Montaj</option>
+                            <option value="kalite">Kalite</option>
+                            <option value="lojistik">Lojistik</option>
+                            <option value="bakim">Bakım Onarım</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Öneri Tipi</label>
+                        <select class="form-control">
+                            <option value="">Tümü</option>
+                            <option value="verimlilik">Verimlilik Artırma</option>
+                            <option value="maliyet">Maliyet Azaltma</option>
+                            <option value="kalite">Kalite İyileştirme</option>
+                            <option value="ergonomi">Ergonomi</option>
+                            <option value="guvenlik">İş Güvenliği</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Başlangıç Tarihi</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bitiş Tarihi</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Açık Gün Durumu</label>
+                        <select class="form-control">
+                            <option value="">Tümü</option>
+                            <option value="green">Normal (1-14 gün)</option>
+                            <option value="yellow">Dikkat (15-21 gün)</option>
+                            <option value="red">Kritik (22+ gün)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Konu</label>
+                        <input type="text" class="form-control" placeholder="Konu içinde ara">
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary">🔍 Filtrele</button>
+                    <button class="btn btn-secondary">🔄 Temizle</button>
+                    <button class="btn btn-success">📥 Excel İndir</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions Toolbar -->
+        <div class="actions-toolbar">
+            <div class="bulk-actions">
+                <input type="checkbox" id="selectAll" style="width: 18px; height: 18px; cursor: pointer;">
+                <label for="selectAll" style="cursor: pointer; margin-left: 5px;">Tümünü Seç</label>
+                <button class="btn btn-secondary" disabled id="bulkActionBtn">Toplu İşlem</button>
+            </div>
+            <div>
+                Toplam <strong>1,248</strong> kayıt bulundu
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="card">
+            <div class="card-body" style="padding: 0;">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" class="select-all-checkbox">
+                                </th>
+                                <th>Öneri No</th>
+                                <th>Tarih</th>
+                                <th>Öneren</th>
+                                <th>Konu</th>
+                                <th>Departman</th>
+                                <th>Statü</th>
+                                <th>Açık Gün</th>
+                                <th style="width: 200px;">Aksiyonlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1248</strong></td>
+                                <td>30.03.2026</td>
+                                <td>Deniz ÖZKAN</td>
+                                <td>Dijital form geçişi</td>
+                                <td><span class="badge badge-secondary">IT</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-green">2 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1247</strong></td>
+                                <td>29.03.2026</td>
+                                <td>Emre DEMİR</td>
+                                <td>Takım bakım süre azaltma</td>
+                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-green">3 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1246</strong></td>
+                                <td>28.03.2026</td>
+                                <td>Aylin KAYA</td>
+                                <td>Poka-yoke sistemi kurulumu</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td><span class="status-green">-</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-info">📄 Rapor</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1245</strong></td>
+                                <td>28.02.2026</td>
+                                <td>Ahmet ÇELIK</td>
+                                <td>Hat 3 verimlilik artırma</td>
+                                <td><span class="badge badge-secondary">Üretim</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-red">32 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1244</strong></td>
+                                <td>25.03.2026</td>
+                                <td>Burak YILMAZ</td>
+                                <td>5S uygulama alanı genişletme</td>
+                                <td><span class="badge badge-secondary">Üretim</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td><span class="status-green">-</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-info">📄 Rapor</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1243</strong></td>
+                                <td>22.03.2026</td>
+                                <td>Selin ÜNAL</td>
+                                <td>Stok yönetimi optimizasyonu 🏆</td>
+                                <td><span class="badge badge-secondary">Lojistik</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-green">10 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1242</strong></td>
+                                <td>20.03.2026</td>
+                                <td>Can AKIN</td>
+                                <td>Ergonomi düzenlemesi</td>
+                                <td><span class="badge badge-secondary">İK</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-yellow">12 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1241</strong></td>
+                                <td>18.03.2026</td>
+                                <td>Elif YILDIRIM</td>
+                                <td>Kalite kontrol iyileştirme</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td><span class="badge badge-danger">Gerçekleştirilemedi</span></td>
+                                <td><span class="status-green">-</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-secondary">Arşiv</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1240</strong></td>
+                                <td>15.03.2026</td>
+                                <td>Mustafa KARA</td>
+                                <td>Enerji optimizasyonu</td>
+                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td><span class="badge badge-warning">Çalışılıyor</span></td>
+                                <td><span class="status-red">17 gün</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-warning">Düzenle</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="row-checkbox"></td>
+                                <td><strong>FÖY-2026-1239</strong></td>
+                                <td>10.03.2026</td>
+                                <td>Zeynep ARSLAN</td>
+                                <td>Malzeme israf azaltma 🏆</td>
+                                <td><span class="badge badge-secondary">Kalite</span></td>
+                                <td><span class="badge badge-success">Gerçekleştirildi</span></td>
+                                <td><span class="status-green">-</span></td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="action-btn btn-primary">Detay</button>
+                                        <button class="action-btn btn-info">📄 Rapor</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <div>
+                <select class="form-control" style="display: inline-block; width: auto;">
+                    <option value="10">10 kayıt/sayfa</option>
+                    <option value="25" selected>25 kayıt/sayfa</option>
+                    <option value="50">50 kayıt/sayfa</option>
+                    <option value="100">100 kayıt/sayfa</option>
+                </select>
+                <span style="margin-left: 15px;">Sayfa 1 / 50 (1,248 kayıt)</span>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary" disabled>« İlk</button>
+                <button class="btn btn-secondary" disabled>‹ Önceki</button>
+                <button class="btn btn-primary">1</button>
+                <button class="btn btn-secondary">2</button>
+                <button class="btn btn-secondary">3</button>
+                <button class="btn btn-secondary">...</button>
+                <button class="btn btn-secondary">50</button>
+                <button class="btn btn-secondary">Sonraki ›</button>
+                <button class="btn btn-secondary">Son »</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        // Filter chips
+        document.querySelectorAll('.filter-chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                // Burada filtreleme yapılır
+            });
+        });
+
+        // Select all functionality
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('.row-checkbox');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+            updateBulkActionButton();
+        });
+
+        document.querySelectorAll('.row-checkbox').forEach(cb => {
+            cb.addEventListener('change', updateBulkActionButton);
+        });
+
+        function updateBulkActionButton() {
+            const checked = document.querySelectorAll('.row-checkbox:checked').length;
+            const btn = document.getElementById('bulkActionBtn');
+            btn.disabled = checked === 0;
+            btn.textContent = checked > 0 ? `Toplu İşlem (${checked} seçili)` : 'Toplu İşlem';
+        }
+
+        // Detail buttons
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const oneriNo = row.querySelector('strong').textContent;
+
+                if (this.textContent === 'Detay') {
+                    alert(`${oneriNo} detayları gösterilecek`);
+                } else if (this.textContent === 'Düzenle') {
+                    window.location.href = `foy-olustur.html?edit=${oneriNo}`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

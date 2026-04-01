@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş - FÖY</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Mehmet YILMAZ</div>
+                    <div class="user-role">Koordinatör - Üretim</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="giris.html" class="active">Ana Sayfa</a></li>
+                <li><a href="idl-listesi.html">IDL Listesi</a></li>
+                <li><a href="degerlendirme.html">Değerlendirme</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; border-radius: 12px; text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 42px; margin-bottom: 20px;">Hoş Geldiniz!</h1>
+                <p style="font-size: 18px; margin-bottom: 30px;">FÖY - Fikir Öneri Yönetimi Sistemi</p>
+                <p style="font-size: 16px;">Koordinatör: <strong>Mehmet YILMAZ</strong></p>
+                <p style="font-size: 14px; opacity: 0.9;">Üretim Departmanı</p>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⏰ Önemli Hatırlatma:</strong> Açık önerilerin <strong>30 iş günü içinde</strong> kapatılması gerekmektedir.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px;">
+                <div class="stat-card info">
+                    <div class="stat-label">Bekleyen Tasklar</div>
+                    <div class="stat-value">18</div>
+                    <a href="idl-listesi.html" class="btn btn-primary" style="margin-top: 15px;">Görüntüle</a>
+                </div>
+
+                <div class="stat-card warning">
+                    <div class="stat-label">Kritik Durum</div>
+                    <div class="stat-value">3</div>
+                    <div class="stat-description">4+ hafta geçmiş</div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-label">Bu Ay Kapatılan</div>
+                    <div class="stat-value">42</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+</body>
+</html>

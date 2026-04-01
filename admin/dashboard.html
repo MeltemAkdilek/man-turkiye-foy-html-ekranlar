@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .chart-placeholder {
+            height: 300px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 14px;
+        }
+
+        .top-10-list {
+            list-style: none;
+        }
+
+        .top-10-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .top-10-list li:hover {
+            background-color: var(--light-gray);
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--secondary-color);
+            width: 30px;
+        }
+
+        .name {
+            flex: 1;
+        }
+
+        .count {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .pending-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .pending-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .pending-item:hover {
+            background-color: var(--light-gray);
+        }
+
+        .pending-info {
+            flex: 1;
+        }
+
+        .pending-number {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
+        .pending-subject {
+            font-size: 13px;
+            color: var(--text-color);
+        }
+
+        .pending-days {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Dashboard - Genel Bakış</h1>
+            <p class="page-description">FÖY sistemine ait özet bilgiler ve istatistikler</p>
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a> / Dashboard
+            </div>
+        </div>
+
+        <!-- Stat Cards -->
+        <div class="dashboard-grid">
+            <div class="stat-card info">
+                <div class="stat-label">Toplam Öneri Sayısı</div>
+                <div class="stat-value">1,248</div>
+                <div class="stat-description">2026 yılı kümülatif</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-label">Gerçekleşen Öneriler</div>
+                <div class="stat-value">856</div>
+                <div class="stat-description">%68.6 başarı oranı</div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-label">Çalışılıyor</div>
+                <div class="stat-value">312</div>
+                <div class="stat-description">Devam eden süreçler</div>
+            </div>
+
+            <div class="stat-card danger">
+                <div class="stat-label">Gerçekleşemedi</div>
+                <div class="stat-value">80</div>
+                <div class="stat-description">%6.4 red oranı</div>
+            </div>
+        </div>
+
+        <!-- Charts Row 1 -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <!-- Aylık Öneri Grafiği -->
+            <div class="chart-container">
+                <h3 class="chart-title">Aylık Öneri Dağılımı (Hedef vs Gerçekleşen)</h3>
+                <div class="chart-placeholder">
+                    📊 Grafik: Aylık hedef ve gerçekleşen öneri karşılaştırması<br>
+                    <small>Yeşil: Hedef üstü | Kırmızı: Hedef altı</small>
+                </div>
+            </div>
+
+            <!-- Öneri Kazançları -->
+            <div class="chart-container">
+                <h3 class="chart-title">Öneri Kazançları (Kümülatif)</h3>
+                <div style="padding: 20px 0;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500;">💼 İşçilik Tasarrufu</span>
+                            <span style="font-weight: 700; color: var(--success-color);">€245,000</span>
+                        </div>
+                        <div style="background-color: var(--light-gray); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 85%; height: 100%; background-color: var(--success-color);"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500;">✅ Kalite İyileştirme</span>
+                            <span style="font-weight: 700; color: var(--info-color);">€180,000</span>
+                        </div>
+                        <div style="background-color: var(--light-gray); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 65%; height: 100%; background-color: var(--info-color);"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500;">💰 Maliyet Azaltma</span>
+                            <span style="font-weight: 700; color: var(--warning-color);">€320,000</span>
+                        </div>
+                        <div style="background-color: var(--light-gray); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 95%; height: 100%; background-color: var(--warning-color);"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500;">⚡ Enerji Tasarrufu</span>
+                            <span style="font-weight: 700; color: var(--secondary-color);">€125,000</span>
+                        </div>
+                        <div style="background-color: var(--light-gray); height: 10px; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 45%; height: 100%; background-color: var(--secondary-color);"></div>
+                        </div>
+                    </div>
+                    <hr style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="font-weight: 700; font-size: 16px;">TOPLAM KAZANÇ</span>
+                        <span style="font-weight: 700; font-size: 18px; color: var(--primary-color);">€870,000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row 2 -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <!-- Top 10 Çalışanlar -->
+            <div class="chart-container">
+                <h3 class="chart-title">🏆 Top 10 En Çok Öneri Veren Çalışanlar</h3>
+                <ul class="top-10-list">
+                    <li>
+                        <span class="rank">1</span>
+                        <span class="name">Mehmet YILMAZ</span>
+                        <span class="count">28 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">2</span>
+                        <span class="name">Ayşe KAYA</span>
+                        <span class="count">24 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">3</span>
+                        <span class="name">Ali DEMİR</span>
+                        <span class="count">22 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">4</span>
+                        <span class="name">Fatma ÖZ</span>
+                        <span class="count">20 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">5</span>
+                        <span class="name">Ahmet ÇELIK</span>
+                        <span class="count">19 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">6</span>
+                        <span class="name">Zeynep ARSLAN</span>
+                        <span class="count">18 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">7</span>
+                        <span class="name">Mustafa KARA</span>
+                        <span class="count">17 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">8</span>
+                        <span class="name">Elif YILDIRIM</span>
+                        <span class="count">16 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">9</span>
+                        <span class="name">Can AKIN</span>
+                        <span class="count">15 öneri</span>
+                    </li>
+                    <li>
+                        <span class="rank">10</span>
+                        <span class="name">Selin ÜNAL</span>
+                        <span class="count">14 öneri</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Top 10 Departmanlar -->
+            <div class="chart-container">
+                <h3 class="chart-title">🏢 Top 10 Departmanlar</h3>
+                <ul class="top-10-list">
+                    <li>
+                        <span class="rank">1</span>
+                        <span class="name">Üretim</span>
+                        <span class="count">342</span>
+                    </li>
+                    <li>
+                        <span class="rank">2</span>
+                        <span class="name">Montaj</span>
+                        <span class="count">286</span>
+                    </li>
+                    <li>
+                        <span class="rank">3</span>
+                        <span class="name">Kalite</span>
+                        <span class="count">198</span>
+                    </li>
+                    <li>
+                        <span class="rank">4</span>
+                        <span class="name">Lojistik</span>
+                        <span class="count">145</span>
+                    </li>
+                    <li>
+                        <span class="rank">5</span>
+                        <span class="name">Bakım Onarım</span>
+                        <span class="count">128</span>
+                    </li>
+                    <li>
+                        <span class="rank">6</span>
+                        <span class="name">Planlama</span>
+                        <span class="count">92</span>
+                    </li>
+                    <li>
+                        <span class="rank">7</span>
+                        <span class="name">IT</span>
+                        <span class="count">45</span>
+                    </li>
+                    <li>
+                        <span class="rank">8</span>
+                        <span class="name">İnsan Kaynakları</span>
+                        <span class="count">12</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Bekleyen Öneriler -->
+            <div class="chart-container">
+                <h3 class="chart-title">⏳ İş Hazırlama - Bekleyen Öneriler</h3>
+                <div class="pending-list">
+                    <div class="pending-item">
+                        <div class="pending-info">
+                            <div class="pending-number">FÖY-2026-1245</div>
+                            <div class="pending-subject">Hat 3 verimlilik artırma</div>
+                        </div>
+                        <span class="pending-days status-green">8 gün</span>
+                    </div>
+                    <div class="pending-item">
+                        <div class="pending-info">
+                            <div class="pending-number">FÖY-2026-1242</div>
+                            <div class="pending-subject">Malzeme israf azaltma</div>
+                        </div>
+                        <span class="pending-days status-yellow">18 gün</span>
+                    </div>
+                    <div class="pending-item">
+                        <div class="pending-info">
+                            <div class="pending-number">FÖY-2026-1238</div>
+                            <div class="pending-subject">Enerji optimizasyonu</div>
+                        </div>
+                        <span class="pending-days status-red">35 gün</span>
+                    </div>
+                    <div class="pending-item">
+                        <div class="pending-info">
+                            <div class="pending-number">FÖY-2026-1235</div>
+                            <div class="pending-subject">Kalite kontrol iyileştirme</div>
+                        </div>
+                        <span class="pending-days status-green">5 gün</span>
+                    </div>
+                    <div class="pending-item">
+                        <div class="pending-info">
+                            <div class="pending-number">FÖY-2026-1232</div>
+                            <div class="pending-subject">Ergonomi düzenlemesi</div>
+                        </div>
+                        <span class="pending-days status-yellow">22 gün</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statü Dağılımı -->
+        <div class="chart-container">
+            <h3 class="chart-title">Öneri Statü Dağılımı (Aylık Bazda)</h3>
+            <div class="chart-placeholder">
+                📊 Grafik: Çalışılan / Gerçekleşen / Gerçekleşemeyen önerilerin aylık dağılımı<br>
+                <small>Çizgi grafik veya sütun grafik</small>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+        <p>Geliştirici: RG Labs</p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

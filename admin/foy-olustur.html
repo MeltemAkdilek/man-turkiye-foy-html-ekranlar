@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FÖY Oluştur - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .file-upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background-color: var(--light-gray);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--secondary-color);
+            background-color: #e3f2fd;
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--success-color);
+            background-color: #d4edda;
+        }
+
+        .file-list {
+            margin-top: 15px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            font-size: 24px;
+        }
+
+        .remove-file {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .gains-table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .gains-table th,
+        .gains-table td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .gains-table input {
+            width: 100%;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .konu-check {
+            margin-top: 10px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            border-radius: 4px;
+            display: none;
+        }
+
+        .konu-check.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html" class="active">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Yeni FÖY Kaydı Oluştur</h1>
+            <p class="page-description">Kağıt formdan alınan bilgiler sisteme girilir</p>
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a> / <a href="foy-listesi.html">FÖY Listesi</a> / Yeni Kayıt
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>ℹ️ Bilgi:</strong> Tüm alanlar kağıt formdan aktarılmaktadır. Kırmızı yıldız (*) ile işaretli alanlar zorunludur.
+        </div>
+
+        <form id="foyForm">
+            <!-- Temel Bilgiler -->
+            <div class="card">
+                <div class="card-header">
+                    📋 Temel Bilgiler
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required">Personel Numarası</label>
+                            <input type="text" class="form-control" id="personelNo" placeholder="130 ile başlamalı" required>
+                            <div class="form-help">SAP sicil numarası otomatik çekilir ve başına 130 eklenir</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Öneri Numarası</label>
+                            <input type="text" class="form-control" id="oneriNo" value="FÖY-2026-1249" disabled>
+                            <div class="form-help">Sistem tarafından otomatik atanır</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Ad Soyad</label>
+                            <input type="text" class="form-control" id="adSoyad" disabled>
+                            <div class="form-help">Personel numarasına göre otomatik doldurulur</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Masraf Merkezi</label>
+                            <input type="text" class="form-control" id="masrafMerkezi" disabled>
+                            <div class="form-help">SAP'den otomatik çekilir</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Öneri Tarihi</label>
+                            <input type="date" class="form-control" id="oneriTarihi">
+                            <div class="form-help">Formun doldurulduğu tarih</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">FÖY Geliş Tarihi</label>
+                            <input type="date" class="form-control" id="gelisTarihi" value="2026-04-01">
+                            <div class="form-help">Formun MNPS'e ulaştığı tarih</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Birim Yöneticisi</label>
+                        <select class="form-control" id="birimYoneticisi" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="1">Mehmet YILMAZ - Üretim Müdürü</option>
+                            <option value="2">Ayşe KAYA - Montaj Müdürü</option>
+                            <option value="3">Ali DEMİR - Kalite Müdürü</option>
+                            <option value="4">Fatma ÖZ - Lojistik Müdürü</option>
+                        </select>
+                        <div class="form-help">Formda onay veren 1. yönetici</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Öneri Detayları -->
+            <div class="card">
+                <div class="card-header">
+                    💡 Öneri Detayları
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="form-label">Konu</label>
+                        <input type="text" class="form-control" id="konu" placeholder="Öneri konusu giriniz">
+                        <div class="form-help">Girildiğinde otomatik mükerrer kontrol yapılır</div>
+                        <div class="konu-check" id="konuCheck">
+                            <strong>⚠️ Dikkat:</strong> Bu çalışan daha önce benzer bir konu ile öneri vermiş.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Problem Tanımı</label>
+                        <textarea class="form-control" id="problemTanimi" rows="4" placeholder="Problem detaylı açıklayınız"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Çözüm Önerisi</label>
+                        <textarea class="form-control" id="cozumOnerisi" rows="4" placeholder="Önerilen çözüm detaylı açıklayınız"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Öneri Tipi</label>
+                            <select class="form-control" id="oneriTipi">
+                                <option value="">Seçiniz...</option>
+                                <option value="1">Verimlilik Artırma</option>
+                                <option value="2">Maliyet Azaltma</option>
+                                <option value="3">Kalite İyileştirme</option>
+                                <option value="4">Ergonomi</option>
+                                <option value="5">İş Güvenliği</option>
+                                <option value="6">Çevre</option>
+                                <option value="7">Enerji Tasarrufu</option>
+                                <option value="8">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Araç Tipi</label>
+                            <select class="form-control" id="aracTipi">
+                                <option value="">Seçiniz...</option>
+                                <optgroup label="Kaizen">
+                                    <option value="k1">5S</option>
+                                    <option value="k2">Standart İş</option>
+                                    <option value="k3">Poka Yoke</option>
+                                </optgroup>
+                                <optgroup label="Lean">
+                                    <option value="l1">Value Stream Mapping</option>
+                                    <option value="l2">Kanban</option>
+                                    <option value="l3">JIT</option>
+                                </optgroup>
+                                <optgroup label="Diğer">
+                                    <option value="d1">Six Sigma</option>
+                                    <option value="d2">TPM</option>
+                                </optgroup>
+                            </select>
+                            <div class="form-help">Hiyerarşik yapıda seçim</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" id="patentAdayi" style="margin-right: 8px;">
+                            <strong>Patent Adayı</strong>
+                        </label>
+                        <div class="form-help">İşaretlendiğinde öneri Patent Adayları listesine eklenir (YENİ ALAN)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Öneri Kazançları -->
+            <div class="card">
+                <div class="card-header">
+                    💰 Öneri Kazançları
+                </div>
+                <div class="card-body">
+                    <table class="gains-table">
+                        <thead>
+                            <tr>
+                                <th>Kategori</th>
+                                <th>Tutar (€)</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>💼 İşçilik</td>
+                                <td><input type="number" class="form-control" placeholder="0.00" step="0.01"></td>
+                                <td><input type="text" class="form-control" placeholder="Detay giriniz"></td>
+                            </tr>
+                            <tr>
+                                <td>✅ Kalite</td>
+                                <td><input type="number" class="form-control" placeholder="0.00" step="0.01"></td>
+                                <td><input type="text" class="form-control" placeholder="Detay giriniz"></td>
+                            </tr>
+                            <tr>
+                                <td>💰 Maliyet</td>
+                                <td><input type="number" class="form-control" placeholder="0.00" step="0.01"></td>
+                                <td><input type="text" class="form-control" placeholder="Detay giriniz"></td>
+                            </tr>
+                            <tr>
+                                <td>⚡ Enerji</td>
+                                <td><input type="number" class="form-control" placeholder="0.00" step="0.01"></td>
+                                <td><input type="text" class="form-control" placeholder="Detay giriniz"></td>
+                            </tr>
+                            <tr>
+                                <td>🔧 Diğer</td>
+                                <td><input type="number" class="form-control" placeholder="0.00" step="0.01"></td>
+                                <td><input type="text" class="form-control" placeholder="Detay giriniz"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Destek Bölümleri -->
+            <div class="card">
+                <div class="card-header">
+                    🏢 Destek Bölümleri
+                </div>
+                <div class="card-body">
+                    <p><strong>Birden fazla departman seçilebilir. Seçilen tüm bölümler listede görünür olacaktır.</strong></p>
+
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep1" name="departments" value="Üretim">
+                            <label for="dep1">Üretim</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep2" name="departments" value="Montaj">
+                            <label for="dep2">Montaj</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep3" name="departments" value="Kalite">
+                            <label for="dep3">Kalite</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep4" name="departments" value="Lojistik">
+                            <label for="dep4">Lojistik</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep5" name="departments" value="Bakım Onarım">
+                            <label for="dep5">Bakım Onarım</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep6" name="departments" value="Planlama">
+                            <label for="dep6">Planlama</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep7" name="departments" value="IT">
+                            <label for="dep7">IT</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep8" name="departments" value="İnsan Kaynakları">
+                            <label for="dep8">İnsan Kaynakları</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep9" name="departments" value="Satınalma">
+                            <label for="dep9">Satınalma</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="dep10" name="departments" value="Finans">
+                            <label for="dep10">Finans</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group mt-20">
+                        <label class="form-label">Ana Bölüm</label>
+                        <select class="form-control" id="anaBolum">
+                            <option value="">Seçilen bölümlerden birini seçiniz...</option>
+                        </select>
+                        <div class="form-help">Birden fazla seçim yapıldığında ana sorumlu bölüm belirlenir</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dosya Ekleme -->
+            <div class="card">
+                <div class="card-header">
+                    📎 Dosya Ekleme
+                </div>
+                <div class="card-body">
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <div style="font-size: 48px; margin-bottom: 15px;">📁</div>
+                        <p><strong>Dosyaları buraya sürükleyin veya tıklayarak seçin</strong></p>
+                        <p style="font-size: 12px; color: var(--dark-gray); margin-top: 10px;">
+                            PDF, JPEG, PNG, Excel, Word ve diğer formatlar desteklenir<br>
+                            Birden fazla dosya yüklenebilir
+                        </p>
+                        <input type="file" id="fileInput" multiple style="display: none;">
+                        <button type="button" class="btn btn-secondary mt-10" onclick="document.getElementById('fileInput').click()">
+                            Dosya Seç
+                        </button>
+                    </div>
+
+                    <div class="file-list" id="fileList">
+                        <!-- Yüklenen dosyalar burada görünecek -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Aksiyonları -->
+            <div class="btn-group" style="justify-content: flex-end;">
+                <button type="button" class="btn btn-secondary">İptal</button>
+                <button type="button" class="btn btn-warning">Taslak Kaydet</button>
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <button type="button" class="btn btn-success">Kaydet ve Mail Gönder</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        // Dosya yükleme işlemleri
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        let uploadedFiles = [];
+
+        // Drag & Drop
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.add('dragover');
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.classList.remove('dragover');
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            for (let file of files) {
+                uploadedFiles.push(file);
+                addFileToList(file);
+            }
+        }
+
+        function addFileToList(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+
+            const fileIcon = getFileIcon(file.name);
+            const fileSize = (file.size / 1024).toFixed(2) + ' KB';
+
+            fileItem.innerHTML = `
+                <div class="file-info">
+                    <span class="file-icon">${fileIcon}</span>
+                    <div>
+                        <strong>${file.name}</strong><br>
+                        <small style="color: var(--dark-gray);">${fileSize}</small>
+                    </div>
+                </div>
+                <button type="button" class="remove-file" onclick="removeFile(this, '${file.name}')">Sil</button>
+            `;
+
+            fileList.appendChild(fileItem);
+        }
+
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': '📕',
+                'jpg': '🖼️', 'jpeg': '🖼️', 'png': '🖼️',
+                'xlsx': '📊', 'xls': '📊',
+                'docx': '📄', 'doc': '📄',
+                'zip': '📦', 'rar': '📦'
+            };
+            return icons[ext] || '📎';
+        }
+
+        function removeFile(button, filename) {
+            uploadedFiles = uploadedFiles.filter(f => f.name !== filename);
+            button.parentElement.remove();
+        }
+
+        // Konu kontrolü simülasyonu
+        document.getElementById('konu').addEventListener('blur', function() {
+            if (this.value.trim()) {
+                // Simülasyon: bazı kelimelerde uyarı göster
+                if (this.value.toLowerCase().includes('verim') ||
+                    this.value.toLowerCase().includes('hat')) {
+                    document.getElementById('konuCheck').classList.add('show');
+                } else {
+                    document.getElementById('konuCheck').classList.remove('show');
+                }
+            }
+        });
+
+        // Form submit
+        document.getElementById('foyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('FÖY kaydı oluşturuldu! Destek bölümlere mail göndermek için "Kaydet ve Mail Gönder" butonunu kullanın.');
+        });
+    </script>
+</body>
+</html>

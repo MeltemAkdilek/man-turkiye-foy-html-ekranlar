@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raporlar - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html" class="active">Raporlar</a></li>
+                <li><a href="bakim.html">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">📈 Raporlar</h1>
+            <p class="page-description">FÖY sistemi performans ve analiz raporları (11+ rapor)</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;">
+            <!-- Rapor 1 -->
+            <div class="card">
+                <div class="card-header">📊 Aylık Öneri Takip</div>
+                <div class="card-body">
+                    <p>Aylık hedef vs. gerçekleşen karşılaştırması. Hedef altı: kırmızı, üstü: yeşil.</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 2 -->
+            <div class="card">
+                <div class="card-header">🏢 Birim Bazlı Kırılım</div>
+                <div class="card-body">
+                    <p>Kümülatif öneri sayılarının birim bazında dağılımı</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 3 -->
+            <div class="card">
+                <div class="card-header">👤 Kişi Başına Düşen Öneri</div>
+                <div class="card-body">
+                    <p>Aylık hedef sınırı altında kalanlar için uyarı</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 4 -->
+            <div class="card">
+                <div class="card-header">📋 Gerçekleşen/Çalışılan/Gerçekleşemeyen</div>
+                <div class="card-body">
+                    <p>Aylık bazlı ortalama karşılaştırması</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 5 -->
+            <div class="card">
+                <div class="card-header">👔 Takım Lideri Raporu</div>
+                <div class="card-body">
+                    <p>TL altındaki tüm personel ve öneri sayıları</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 6 -->
+            <div class="card">
+                <div class="card-header">⚠️ Eskalasyon Raporu</div>
+                <div class="card-body">
+                    <p>Hedef tutturamayan ekip liderleri</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 7 -->
+            <div class="card">
+                <div class="card-header">👥 Katılım Oranı</div>
+                <div class="card-body">
+                    <p>Farklı kişilerin katılım oranı (Hedef: %100)</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 8 -->
+            <div class="card">
+                <div class="card-header">⏱️ Ortalama Uygulama Süresi</div>
+                <div class="card-body">
+                    <p>Öneri kapatma süre analizi (Hedef: 30 gün)</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 9 -->
+            <div class="card">
+                <div class="card-header">🏢 Destek Bölüm Öneri Durumu</div>
+                <div class="card-body">
+                    <p>Destek bölüme verilen toplam öneri dağılımı</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 10 -->
+            <div class="card">
+                <div class="card-header">📅 Destek Bölüm Ort. Gün</div>
+                <div class="card-body">
+                    <p>Kapatma gün analizi departman bazında</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 11 -->
+            <div class="card">
+                <div class="card-header">👨‍💼 BY Başına Gerçekleşen</div>
+                <div class="card-body">
+                    <p>Yönetici kapsamında kişi başına gerçekleşen (Hedef: 7)</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 12 -->
+            <div class="card">
+                <div class="card-header">📉 Gerçekleşme/Kapanma Oranları</div>
+                <div class="card-body">
+                    <p>SL bazlı çift çizgi grafik analizi</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+
+            <!-- Rapor 13 -->
+            <div class="card">
+                <div class="card-header">📊 SL Bazlı Öneri Yayılım</div>
+                <div class="card-body">
+                    <p>Shift Leader bazında yayılım analizi (Hedef: %92)</p>
+                    <button class="btn btn-primary w-100 mt-20">Raporu Görüntüle</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+</body>
+</html>

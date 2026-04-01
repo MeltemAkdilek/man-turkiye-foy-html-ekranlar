@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Yönetici Dashboard - FÖY</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ali DEMİR</div>
+                    <div class="user-role">Müdür - Üretim</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Yönetici Dashboard</h1>
+            <p class="page-description">Ekip performans ve öneri istatistikleri</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="stat-card info">
+                <div class="stat-label">Ekip Öneri Sayısı</div>
+                <div class="stat-value">284</div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-label">Gerçekleşen</div>
+                <div class="stat-value">198</div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-label">Çalışılıyor</div>
+                <div class="stat-value">74</div>
+            </div>
+
+            <div class="stat-card" style="border-left-color: #ff9800;">
+                <div class="stat-label">Destek Bekleyen</div>
+                <div class="stat-value">12</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">👥 Ekip Üyeleri Performansı</div>
+            <div class="card-body" style="padding: 0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Personel</th>
+                            <th>Toplam Öneri</th>
+                            <th>Gerçekleşen</th>
+                            <th>Çalışılıyor</th>
+                            <th>Hedef Durumu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ahmet ÇELIK</td>
+                            <td><strong>12</strong></td>
+                            <td>9</td>
+                            <td>3</td>
+                            <td><span class="badge badge-success">✅ Hedef Üstü</span></td>
+                        </tr>
+                        <tr>
+                            <td>Ayşe KAYA</td>
+                            <td><strong>10</strong></td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td><span class="badge badge-success">✅ Hedef Üstü</span></td>
+                        </tr>
+                        <tr>
+                            <td>Mehmet YILMAZ</td>
+                            <td><strong>6</strong></td>
+                            <td>5</td>
+                            <td>1</td>
+                            <td><span class="badge badge-danger">⚠️ Hedef Altı</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+</body>
+</html>

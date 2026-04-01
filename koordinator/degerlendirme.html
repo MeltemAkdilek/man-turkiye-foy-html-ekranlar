@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Öneri Değerlendirme - FÖY Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: var(--text-color);
+        }
+
+        .decision-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .decision-btn {
+            padding: 20px;
+            border: 2px solid;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .decision-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .decision-btn.selected {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .decision-btn-success {
+            border-color: var(--success-color);
+        }
+
+        .decision-btn-success.selected {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .decision-btn-danger {
+            border-color: var(--danger-color);
+        }
+
+        .decision-btn-danger.selected {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .decision-btn-warning {
+            border-color: var(--warning-color);
+        }
+
+        .decision-btn-warning.selected {
+            background-color: var(--warning-color);
+            color: var(--text-color);
+        }
+
+        .decision-icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .decision-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .decision-desc {
+            font-size: 13px;
+            color: var(--dark-gray);
+        }
+
+        .action-form {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+        }
+
+        .action-form.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .attached-files {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .attached-file {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .attached-file a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .attached-file a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Mehmet YILMAZ</div>
+                    <div class="user-role">Koordinatör - Üretim</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="giris.html">Ana Sayfa</a></li>
+                <li><a href="idl-listesi.html">IDL Listesi</a></li>
+                <li><a href="degerlendirme.html" class="active">Değerlendirme</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">Öneri Değerlendirme</h1>
+            <p class="page-description">FÖY-2026-1245 - Detay görüntüleme ve aksiyon alma</p>
+            <div class="breadcrumb">
+                <a href="giris.html">Ana Sayfa</a> / <a href="idl-listesi.html">IDL Listesi</a> / Değerlendirme
+            </div>
+        </div>
+
+        <!-- Durum Uyarısı -->
+        <div class="alert alert-danger">
+            <strong>🔴 Kritik Uyarı:</strong> Bu öneri <strong>32 gün</strong> açık! 30 iş günü hedefi aşılmıştır.
+        </div>
+
+        <!-- Öneri Temel Bilgileri -->
+        <div class="card">
+            <div class="card-header">
+                📄 Öneri Temel Bilgileri
+            </div>
+            <div class="card-body">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Öneri Numarası</span>
+                        <span class="info-value"><strong>FÖY-2026-1245</strong></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Öneri Tarihi</span>
+                        <span class="info-value">28 Şubat 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">FÖY Geliş Tarihi</span>
+                        <span class="info-value">01 Mart 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Açık Gün Sayısı</span>
+                        <span class="info-value status-red"><strong>32 gün</strong></span>
+                    </div>
+                </div>
+
+                <hr style="margin: 20px 0;">
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Öneren Personel</span>
+                        <span class="info-value">Ahmet ÇELIK (130012345)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Masraf Merkezi</span>
+                        <span class="info-value">MM-1250 - Üretim Hat 3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Birim Yöneticisi</span>
+                        <span class="info-value">Mehmet YILMAZ</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Ana Bölüm</span>
+                        <span class="info-value"><span class="badge badge-info">Montaj</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Öneri Detayları -->
+        <div class="card">
+            <div class="card-header">
+                💡 Öneri Detayları
+            </div>
+            <div class="card-body">
+                <div class="info-item mb-20">
+                    <span class="info-label">Konu</span>
+                    <span class="info-value"><strong>Hat 3 verimlilik artırma</strong></span>
+                </div>
+
+                <div class="info-item mb-20">
+                    <span class="info-label">Problem Tanımı</span>
+                    <span class="info-value">
+                        Hat 3'te montaj işlemleri sırasında malzeme tedarik süresi uzun sürmektedir.
+                        Operatörler malzeme almak için hattan ayrılmak zorunda kalıyor ve bu durum
+                        üretim akışını kesintiye uğratmaktadır. Günlük ortalama 45 dakika kayıp yaşanmaktadır.
+                    </span>
+                </div>
+
+                <div class="info-item mb-20">
+                    <span class="info-label">Çözüm Önerisi</span>
+                    <span class="info-value">
+                        Hat yanına malzeme hazırlık istasyonu kurulması önerilmektedir. Böylece operatörler
+                        hattan ayrılmadan ihtiyaç duydukları malzemelere ulaşabileceklerdir. Mizumo sistemine
+                        benzer bir çözüm uygulanabilir. Tahmini kurulum süresi 2 hafta, beklenen verimlilik
+                        artışı %15 civarındadır.
+                    </span>
+                </div>
+
+                <div class="form-row">
+                    <div class="info-item">
+                        <span class="info-label">Öneri Tipi</span>
+                        <span class="info-value"><span class="badge badge-secondary">Verimlilik Artırma</span></span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Araç Tipi</span>
+                        <span class="info-value"><span class="badge badge-secondary">Kaizen - 5S</span></span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Patent Adayı</span>
+                        <span class="info-value">❌ Hayır</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Beklenen Kazançlar -->
+        <div class="card">
+            <div class="card-header">
+                💰 Beklenen Kazançlar
+            </div>
+            <div class="card-body">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Kategori</th>
+                                <th>Tutar</th>
+                                <th>Açıklama</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>💼 İşçilik</td>
+                                <td><strong>€12,500</strong></td>
+                                <td>Yıllık zaman tasarrufu</td>
+                            </tr>
+                            <tr>
+                                <td>✅ Kalite</td>
+                                <td><strong>€3,200</strong></td>
+                                <td>Hata azalması</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><strong>TOPLAM BEKLENEN KAZANÇ</strong></td>
+                                <td><strong style="color: var(--success-color); font-size: 18px;">€15,700</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Destek Bölümleri -->
+        <div class="card">
+            <div class="card-header">
+                🏢 Destek Bölümleri
+            </div>
+            <div class="card-body">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <span class="badge badge-info" style="padding: 10px 15px; font-size: 13px;">Montaj (Ana Bölüm)</span>
+                    <span class="badge badge-secondary" style="padding: 10px 15px; font-size: 13px;">Üretim</span>
+                    <span class="badge badge-secondary" style="padding: 10px 15px; font-size: 13px;">Lojistik</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ekli Dosyalar -->
+        <div class="card">
+            <div class="card-header">
+                📎 Ekli Dosyalar
+            </div>
+            <div class="card-body">
+                <div class="attached-files">
+                    <div class="attached-file">
+                        <span>📕</span>
+                        <a href="#" download>FOY_Form_1245.pdf</a>
+                        <span style="color: var(--dark-gray); font-size: 11px;">(245 KB)</span>
+                    </div>
+                    <div class="attached-file">
+                        <span>🖼️</span>
+                        <a href="#" download>Hat3_Mevcut_Durum.jpg</a>
+                        <span style="color: var(--dark-gray); font-size: 11px;">(1.2 MB)</span>
+                    </div>
+                    <div class="attached-file">
+                        <span>🖼️</span>
+                        <a href="#" download>Onerilen_Cozum_Taslak.jpg</a>
+                        <span style="color: var(--dark-gray); font-size: 11px;">(890 KB)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Değerlendirme ve Karar -->
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                ⚖️ Değerlendirme ve Karar
+            </div>
+            <div class="card-body">
+                <h3 style="margin-bottom: 20px; color: var(--primary-color);">Lütfen bir karar seçiniz:</h3>
+
+                <div class="decision-buttons">
+                    <!-- Gerçekleştirildi -->
+                    <div class="decision-btn decision-btn-success" data-action="gerceklesti">
+                        <div class="decision-icon">✅</div>
+                        <div class="decision-title">Gerçekleştirildi</div>
+                        <div class="decision-desc">Öneri başarıyla uygulandı</div>
+                    </div>
+
+                    <!-- Gerçekleştirilemedi -->
+                    <div class="decision-btn decision-btn-danger" data-action="gerceklesemedi">
+                        <div class="decision-icon">❌</div>
+                        <div class="decision-title">Gerçekleştirilemedi</div>
+                        <div class="decision-desc">Teknik/operasyonel nedenle reddedildi</div>
+                    </div>
+
+                    <!-- Transfer -->
+                    <div class="decision-btn decision-btn-warning" data-action="transfer">
+                        <div class="decision-icon">🔄</div>
+                        <div class="decision-title">Transfer</div>
+                        <div class="decision-desc">Başka departmana aktarıldı</div>
+                    </div>
+                </div>
+
+                <!-- Gerçekleştirildi Formu -->
+                <div id="form-gerceklesti" class="action-form">
+                    <h4 style="margin-bottom: 15px; color: var(--success-color);">✅ Gerçekleştirme Bilgileri</h4>
+
+                    <div class="form-group">
+                        <label class="form-label">Uygulama Notları</label>
+                        <textarea class="form-control" rows="4" placeholder="Önerinin nasıl uygulandığını açıklayınız"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Gerçekleşen Kazançlar (Opsiyonel)</label>
+                        <input type="text" class="form-control" placeholder="Ölçülen gerçek kazançlar">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" style="margin-right: 8px;">
+                            Ek destek bölümü ekle
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dosya Ekle</label>
+                        <input type="file" class="form-control" multiple>
+                        <div class="form-help">Uygulama fotoğrafları veya dokümanları ekleyebilirsiniz</div>
+                    </div>
+
+                    <div class="btn-group" style="justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="cancelDecision()">İptal</button>
+                        <button type="button" class="btn btn-success">Onayla ve Kapat</button>
+                    </div>
+                </div>
+
+                <!-- Gerçekleştirilemedi Formu -->
+                <div id="form-gerceklesemedi" class="action-form">
+                    <h4 style="margin-bottom: 15px; color: var(--danger-color);">❌ Red Bilgileri</h4>
+
+                    <div class="form-group">
+                        <label class="form-label required">Red Açıklaması</label>
+                        <textarea class="form-control" rows="5" placeholder="Önerinin neden gerçekleştirilemediğini detaylı açıklayınız (ZORUNLU)" required></textarea>
+                        <div class="form-help">Bu alan boş bırakılamaz!</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Red Nedeni Kategorisi</label>
+                        <select class="form-control">
+                            <option value="">Seçiniz...</option>
+                            <option value="1">Teknik Olarak İmkansız</option>
+                            <option value="2">Maliyet Uygun Değil</option>
+                            <option value="3">Güvenlik Riski</option>
+                            <option value="4">Mevcut Standartlara Uygun Değil</option>
+                            <option value="5">Başka Bir Çözüm Mevcut</option>
+                            <option value="6">Diğer</option>
+                        </select>
+                    </div>
+
+                    <div class="btn-group" style="justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="cancelDecision()">İptal</button>
+                        <button type="button" class="btn btn-danger">Onayla ve Reddet</button>
+                    </div>
+                </div>
+
+                <!-- Transfer Formu -->
+                <div id="form-transfer" class="action-form">
+                    <h4 style="margin-bottom: 15px; color: var(--warning-color);">🔄 Transfer Bilgileri</h4>
+
+                    <div class="form-group">
+                        <label class="form-label required">Transfer Edilecek Departman</label>
+                        <select class="form-control" required>
+                            <option value="">Seçiniz...</option>
+                            <option value="1">Kalite</option>
+                            <option value="2">Lojistik</option>
+                            <option value="3">Bakım Onarım</option>
+                            <option value="4">Planlama</option>
+                            <option value="5">IT</option>
+                            <option value="6">İnsan Kaynakları</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Transfer Nedeni</label>
+                        <textarea class="form-control" rows="4" placeholder="Neden bu departmana transfer edildiğini açıklayınız" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <input type="checkbox" style="margin-right: 8px;">
+                            Kendi bölüm sorumluluğumu kapat (hem transfer hem kapatma)
+                        </label>
+                        <div class="form-help">İşaretlenirse: hem kendi kısmınız kapatılır hem de yeni birime aktarılır</div>
+                    </div>
+
+                    <div class="btn-group" style="justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="cancelDecision()">İptal</button>
+                        <button type="button" class="btn btn-warning">Transfer Et</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        // Karar butonları işlevleri
+        const decisionButtons = document.querySelectorAll('.decision-btn');
+        const actionForms = document.querySelectorAll('.action-form');
+
+        decisionButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const action = this.getAttribute('data-action');
+
+                // Tüm butonları deselect et
+                decisionButtons.forEach(b => b.classList.remove('selected'));
+
+                // Tüm formları gizle
+                actionForms.forEach(f => f.classList.remove('show'));
+
+                // Seçili butonu işaretle
+                this.classList.add('selected');
+
+                // İlgili formu göster
+                const form = document.getElementById(`form-${action}`);
+                if (form) {
+                    form.classList.add('show');
+                    // Forma scroll et
+                    form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
+
+        function cancelDecision() {
+            decisionButtons.forEach(b => b.classList.remove('selected'));
+            actionForms.forEach(f => f.classList.remove('show'));
+        }
+
+        // Form submit simülasyonları
+        document.querySelectorAll('.btn-success, .btn-danger, .btn-warning').forEach(btn => {
+            if (btn.textContent.includes('Onayla') || btn.textContent.includes('Transfer')) {
+                btn.addEventListener('click', function() {
+                    const action = this.className.includes('success') ? 'gerçekleştirildi' :
+                                  this.className.includes('danger') ? 'reddedildi' : 'transfer edildi';
+
+                    if (confirm(`Bu öneri ${action} olarak işaretlenecek. Emin misiniz?`)) {
+                        alert(`✅ İşlem başarılı! Öneri ${action}. İlgililere otomatik mail gönderildi.`);
+                        window.location.href = 'idl-listesi.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
