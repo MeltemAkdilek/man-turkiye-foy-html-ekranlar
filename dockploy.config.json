@@ -1,0 +1,9 @@
+{
+  "name": "FÖY HTML Ekranlar",
+  "type": "static",
+  "framework": "html",
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": "",
+  "envVars": {}
+}

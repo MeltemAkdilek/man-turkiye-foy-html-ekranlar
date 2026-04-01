@@ -136,6 +136,24 @@ FOY_HTML_Ekranlar/
 
 ## 🚀 Kullanım
 
+### 🌐 Online Demo (Dockploy/Cloud Deployment)
+
+Proje otomatik olarak deploy edilebilir. Docker ve nginx ile hazır!
+
+**GitHub Repository:** https://github.com/MeltemAkdilek/man-turkiye-foy-html-ekranlar
+
+### 🐳 Docker ile Çalıştırma
+
+```bash
+# Docker image oluştur
+docker build -t foy-html .
+
+# Container başlat
+docker run -d -p 8080:80 foy-html
+
+# Tarayıcıda aç: http://localhost:8080
+```
+
 ### Yerel Sunucu ile Çalıştırma (Önerilen)
 
 ```bash
@@ -149,6 +167,46 @@ python3 -m http.server 8000
 
 ### Doğrudan Açma
 `index.html` dosyasını çift tıklayarak tarayıcıda açabilirsiniz.
+
+### 📦 Dockploy Deployment
+
+#### Yöntem 1: Static Site (En Kolay - ÖNERİLEN!)
+1. Dockploy dashboard'da **"Create Service"** veya **"New Project"** tıklayın
+2. **Build Settings** kısmında **"Static"** seçin
+3. **Repository:** `https://github.com/MeltemAkdilek/man-turkiye-foy-html-ekranlar`
+4. **Branch:** `main`
+5. **Build Command:** (boş bırakın)
+6. **Output Directory:** `.` veya `/` (root directory)
+7. **Install Command:** (boş bırakın)
+8. **Deploy** butonuna basın
+
+#### Yöntem 2: Docker (Alternatif)
+Eğer "Docker" seçeneğini tercih ederseniz:
+1. Dockploy dashboard'da **"Create Service"** tıklayın
+2. **Service Type:** Docker veya Dockerfile
+3. **Repository:** `https://github.com/MeltemAkdilek/man-turkiye-foy-html-ekranlar`
+4. **Branch:** `main`
+5. **Dockerfile Path:** `./Dockerfile` (otomatik algılanır)
+6. **Port:** 80
+7. Deploy butonuna basın
+
+#### Deployment Ayarları
+```json
+{
+  "type": "static",
+  "framework": "html",
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "installCommand": ""
+}
+```
+
+#### Deployment Özellikleri
+- ✅ Pure HTML/CSS/JS (framework yok)
+- ✅ Tüm dosyalar root dizinde
+- ✅ index.html ana sayfa
+- ✅ Responsive tasarım
+- ✅ SSL/HTTPS uyumlu
 
 ## 📖 Navigasyon
 
