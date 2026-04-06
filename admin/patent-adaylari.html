@@ -135,7 +135,7 @@
         </div>
 
         <div class="alert alert-info">
-            <strong>ℹ️ Bilgi:</strong> FÖY oluşturma ekranında "Patent Adayı" olarak işaretlenen öneriler bu listede görünür. Bu öneriler özel inceleme ve patent başvuru sürecine alınabilir.
+            <strong>ℹ️ Bilgi:</strong> FÖY oluşturma ekranında "Patent Adayı" olarak işaretlenen öneriler bu listede görünür. Admin tarafından takip edilir. Patent statü durumu ve açıklama alanları metin olarak girilir. FÖY numarasına not eklenebilir (ör: TÜBİTAK'ta şu numarayla takip ediliyor).
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px;">
@@ -144,15 +144,15 @@
                 <div class="stat-value">12</div>
             </div>
             <div class="stat-card" style="border-left-color: #28a745;">
-                <div class="stat-label">Onaylandı</div>
+                <div class="stat-label">Gerçekleştirildi</div>
                 <div class="stat-value">5</div>
             </div>
-            <div class="stat-card" style="border-left-color: #17a2b8;">
-                <div class="stat-label">İncelemede</div>
+            <div class="stat-card" style="border-left-color: #ffc107;">
+                <div class="stat-label">Çalışılıyor</div>
                 <div class="stat-value">4</div>
             </div>
-            <div class="stat-card" style="border-left-color: #ffc107;">
-                <div class="stat-label">Beklemede</div>
+            <div class="stat-card" style="border-left-color: #dc3545;">
+                <div class="stat-label">Gerçekleştirilemedi</div>
                 <div class="stat-value">3</div>
             </div>
         </div>
@@ -164,7 +164,7 @@
                     <div class="patent-number">FÖY-2026-1243</div>
                     <span class="innovation-badge">💡 Yenilikçi Çözüm</span>
                 </div>
-                <span class="patent-status status-under-review">📋 İncelemede</span>
+                <span class="badge badge-warning">Çalışılıyor</span>
             </div>
 
             <div class="patent-content">
@@ -188,12 +188,12 @@
                         <div class="patent-value">22 Mart 2026</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Patent İnceleme Tarihi</div>
-                        <div class="patent-value">28 Mart 2026</div>
+                        <div class="patent-label">Kazanç</div>
+                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">85000</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Beklenen Kazanç</div>
-                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">€85,000/yıl</div>
+                        <div class="patent-label">Kazanç Açıklaması</div>
+                        <div class="patent-value">Yıllık maliyet tasarrufu</div>
                     </div>
                 </div>
             </div>
@@ -206,10 +206,16 @@
                 </div>
             </div>
 
+            <div class="patent-field">
+                <div class="patent-label">Patent Statü / Açıklama</div>
+                <div class="patent-value">
+                    <textarea class="form-control" rows="2" placeholder="Patent takip notu giriniz (ör: TÜBİTAK - Başvuru No: 2026/12345)">TÜBİTAK'a 15 Mart 2026 tarihinde başvuru yapıldı. Başvuru No: 2026/12345</textarea>
+                </div>
+            </div>
+
             <div style="margin-top: 20px; display: flex; gap: 10px;">
                 <button class="btn btn-primary">Detayları Görüntüle</button>
-                <button class="btn btn-success">Patent Başvurusu Yap</button>
-                <button class="btn btn-secondary">📥 Rapor İndir</button>
+                <button class="btn btn-success">Notu Kaydet</button>
             </div>
         </div>
 
@@ -220,7 +226,7 @@
                     <div class="patent-number">FÖY-2026-1239</div>
                     <span class="innovation-badge">🎯 Süreç İnovasyonu</span>
                 </div>
-                <span class="patent-status status-approved">✅ Onaylandı</span>
+                <span class="badge badge-success">Gerçekleştirildi</span>
             </div>
 
             <div class="patent-content">
@@ -244,12 +250,12 @@
                         <div class="patent-value">10 Mart 2026</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Patent Onay Tarihi</div>
-                        <div class="patent-value">25 Mart 2026</div>
+                        <div class="patent-label">Kazanç</div>
+                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">125000</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Gerçekleşen Kazanç</div>
-                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">€125,000/yıl</div>
+                        <div class="patent-label">Kazanç Açıklaması</div>
+                        <div class="patent-value">Malzeme geri kazanımından yıllık tasarruf</div>
                     </div>
                 </div>
             </div>
@@ -264,8 +270,7 @@
 
             <div style="margin-top: 20px; display: flex; gap: 10px;">
                 <button class="btn btn-primary">Detayları Görüntüle</button>
-                <button class="btn btn-info">Patent Belgesi Görüntüle</button>
-                <button class="btn btn-secondary">📥 Rapor İndir</button>
+                <button class="btn btn-success">Notu Kaydet</button>
             </div>
         </div>
 
@@ -276,7 +281,7 @@
                     <div class="patent-number">FÖY-2026-1187</div>
                     <span class="innovation-badge">⚡ Teknolojik İnovasyon</span>
                 </div>
-                <span class="patent-status status-pending">⏳ Beklemede</span>
+                <span class="badge badge-warning">Çalışılıyor</span>
             </div>
 
             <div class="patent-content">
@@ -300,12 +305,12 @@
                         <div class="patent-value">05 Şubat 2026</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Patent Başvuru Durumu</div>
-                        <div class="patent-value">Ön değerlendirme bekleniyor</div>
+                        <div class="patent-label">Kazanç</div>
+                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">200000</div>
                     </div>
                     <div class="patent-field">
-                        <div class="patent-label">Beklenen Kazanç</div>
-                        <div class="patent-value" style="color: var(--success-color); font-weight: 700;">€200,000/yıl</div>
+                        <div class="patent-label">Kazanç Açıklaması</div>
+                        <div class="patent-value">Yıllık enerji verimliliği kazancı</div>
                     </div>
                 </div>
             </div>
@@ -320,15 +325,13 @@
 
             <div style="margin-top: 20px; display: flex; gap: 10px;">
                 <button class="btn btn-primary">Detayları Görüntüle</button>
-                <button class="btn btn-warning">İncelemeye Al</button>
-                <button class="btn btn-secondary">📥 Rapor İndir</button>
+                <button class="btn btn-success">Notu Kaydet</button>
             </div>
         </div>
 
         <!-- Export & Actions -->
         <div style="margin-top: 30px; display: flex; justify-content: flex-end; gap: 10px;">
             <button class="btn btn-success">📥 Tüm Listeyi Excel'e Aktar</button>
-            <button class="btn btn-primary">📄 Patent Raporu Oluştur</button>
         </div>
     </main>
 

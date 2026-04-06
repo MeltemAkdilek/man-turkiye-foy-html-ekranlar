@@ -160,6 +160,21 @@
                 </div>
             </div>
             <div class="card-body" style="padding: 0;">
+                <div style="padding: 20px; background-color: #f8f9fa; border-bottom: 1px solid var(--border-color);">
+                    <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+                        <input type="text" class="form-control" id="arsivArama" placeholder="Öneri no, konu, personel adı ile arama yapabilirsiniz..." style="flex: 1;">
+                        <button class="btn btn-primary" style="white-space: nowrap;">🔍 Ara</button>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <label style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; background: white; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color);">
+                            <input type="checkbox" id="tumArsivArama" style="margin: 0; cursor: pointer;">
+                            <strong>Tüm arşivde ara</strong> (Son 10 yıl)
+                        </label>
+                        <div class="form-help" style="margin: 0;">
+                            <span id="aramaAciklama">Sadece seçili yıl içinde arama yapılır.</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -170,7 +185,6 @@
                                 <th>Konu</th>
                                 <th>Departman</th>
                                 <th>Statü</th>
-                                <th>Kazanç</th>
                                 <th>Aksiyonlar</th>
                             </tr>
                         </thead>
@@ -182,7 +196,6 @@
                                 <td>Yıl sonu verimlilik analizi</td>
                                 <td><span class="badge badge-secondary">Planlama</span></td>
                                 <td><span class="badge badge-success">Gerçekleştirildi</span></td>
-                                <td>€15,200</td>
                                 <td>
                                     <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
                                     <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
@@ -195,7 +208,6 @@
                                 <td>Envanter yönetim iyileştirme</td>
                                 <td><span class="badge badge-secondary">Lojistik</span></td>
                                 <td><span class="badge badge-success">Gerçekleştirildi</span></td>
-                                <td>€22,500</td>
                                 <td>
                                     <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
                                     <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
@@ -208,7 +220,6 @@
                                 <td>Enerji tasarrufu projesi</td>
                                 <td><span class="badge badge-secondary">Bakım</span></td>
                                 <td><span class="badge badge-success">Gerçekleştirildi</span></td>
-                                <td>€48,000</td>
                                 <td>
                                     <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
                                     <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
@@ -221,7 +232,6 @@
                                 <td>Kalite kontrol otomasyonu</td>
                                 <td><span class="badge badge-secondary">Kalite</span></td>
                                 <td><span class="badge badge-danger">Gerçekleştirilemedi</span></td>
-                                <td>-</td>
                                 <td>
                                     <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
                                     <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
@@ -234,7 +244,6 @@
                                 <td>Montaj hattı reorganizasyonu</td>
                                 <td><span class="badge badge-secondary">Montaj</span></td>
                                 <td><span class="badge badge-success">Gerçekleştirildi</span></td>
-                                <td>€35,700</td>
                                 <td>
                                     <button class="btn btn-primary" style="font-size: 11px; padding: 5px 10px;">Detay</button>
                                     <button class="btn btn-secondary" style="font-size: 11px; padding: 5px 10px;">📥 İndir</button>
@@ -271,6 +280,20 @@
                 const year = this.getAttribute('data-year');
                 alert(`${year} yılı verileri yükleniyor...`);
             });
+        });
+
+        // Tüm arşivde ara checkbox kontrolü
+        document.getElementById('tumArsivArama').addEventListener('change', function() {
+            const aciklama = document.getElementById('aramaAciklama');
+            if (this.checked) {
+                aciklama.textContent = 'Tüm yıllar (son 10 yıl) içinde arama yapılacaktır.';
+                aciklama.style.color = 'var(--warning-color)';
+                aciklama.style.fontWeight = 'bold';
+            } else {
+                aciklama.textContent = 'Sadece seçili yıl içinde arama yapılır.';
+                aciklama.style.color = '';
+                aciklama.style.fontWeight = '';
+            }
         });
     </script>
 </body>

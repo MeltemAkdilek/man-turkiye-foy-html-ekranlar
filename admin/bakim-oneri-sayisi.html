@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Öneri Sayısı Parametresi - FÖY</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="logo-section">
+                <div class="logo">MAN TÜRKİYE</div>
+                <div class="system-title">FÖY - Fikir Öneri Yönetimi</div>
+            </div>
+            <div class="user-section">
+                <div class="user-info">
+                    <div class="user-name">Ayça Gürçelik</div>
+                    <div class="user-role">Admin - MNPS</div>
+                </div>
+                <button class="logout-btn">Çıkış</button>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="foy-olustur.html">FÖY Oluştur</a></li>
+                <li><a href="foy-listesi.html">FÖY Listesi</a></li>
+                <li><a href="raporlar.html">Raporlar</a></li>
+                <li><a href="bakim.html" class="active">Bakım Ekranları</a></li>
+                <li><a href="arsiv.html">Arşiv</a></li>
+                <li><a href="patent-adaylari.html">Patent Adayları</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title">🎯 Yıllık Öneri Sayısı Hedefi</h1>
+            <p class="page-description">Kişi başı beklenen yıllık öneri sayısının tanımlanması</p>
+            <div class="breadcrumb">
+                <a href="dashboard.html">Ana Sayfa</a> / <a href="bakim.html">Bakım Ekranları</a> / Öneri Sayısı Parametresi
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <strong>ℹ️ Bilgi:</strong> Öneri sayısı yıla göre değişiklik gösterir. Bu ekran üzerinden dinamik olarak güncellenebilir. Performans değerlendirmesi gün bazında hesaplanır.
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                📊 Geçmiş Yıllar Öneri Hedefleri
+            </div>
+            <div class="card-body" style="padding: 0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Yıl</th>
+                            <th>Kişi Başı Hedef</th>
+                            <th>Toplam Öneri</th>
+                            <th>Gerçekleşme Oranı</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>2026</strong></td>
+                            <td><strong>8 öneri</strong></td>
+                            <td>1,248</td>
+                            <td>%92.5</td>
+                            <td><span class="badge badge-warning">Devam Ediyor</span></td>
+                        </tr>
+                        <tr>
+                            <td>2025</td>
+                            <td>8 öneri</td>
+                            <td>1,156</td>
+                            <td>%98.0</td>
+                            <td><span class="badge badge-success">Tamamlandı</span></td>
+                        </tr>
+                        <tr>
+                            <td>2024</td>
+                            <td>7 öneri</td>
+                            <td>1,089</td>
+                            <td>%95.2</td>
+                            <td><span class="badge badge-success">Tamamlandı</span></td>
+                        </tr>
+                        <tr>
+                            <td>2023</td>
+                            <td>7 öneri</td>
+                            <td>986</td>
+                            <td>%88.5</td>
+                            <td><span class="badge badge-success">Tamamlandı</span></td>
+                        </tr>
+                        <tr>
+                            <td>2022</td>
+                            <td>6 öneri</td>
+                            <td>852</td>
+                            <td>%91.0</td>
+                            <td><span class="badge badge-success">Tamamlandı</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                ⚙️ 2026 Yılı Hedef Güncelleme
+            </div>
+            <div class="card-body">
+                <form id="hedefForm">
+                    <div class="form-group">
+                        <label class="form-label required">Yıl</label>
+                        <select class="form-control" id="yil" required>
+                            <option value="2026" selected>2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Kişi Başı Yıllık Öneri Hedefi</label>
+                        <input type="number" class="form-control" id="hedefSayi" value="8" min="1" max="20" required>
+                        <div class="form-help">Her çalışandan yıl içinde beklenen öneri sayısı</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Açıklama / Not</label>
+                        <textarea class="form-control" rows="3" placeholder="İsteğe bağlı açıklama girebilirsiniz"></textarea>
+                    </div>
+
+                    <hr style="margin: 30px 0;">
+
+                    <h4 style="margin-bottom: 20px;">Performans Değerlendirme Kriterleri (Gün Bazlı)</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Yeşil Aralık (gün)</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="number" class="form-control" value="7" min="1" max="30" style="flex: 1;">
+                                <span>-</span>
+                                <input type="number" class="form-control" value="14" min="1" max="30" style="flex: 1;">
+                                <span>gün</span>
+                            </div>
+                            <div class="form-help">Açık öneri süresi bu aralıkta ise yeşil gösterilir</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Sarı Aralık (gün)</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="number" class="form-control" value="14" min="1" max="30" style="flex: 1;">
+                                <span>-</span>
+                                <input type="number" class="form-control" value="21" min="1" max="30" style="flex: 1;">
+                                <span>gün</span>
+                            </div>
+                            <div class="form-help">Açık öneri süresi bu aralıkta ise sarı gösterilir</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Kırmızı Eşik (gün)</label>
+                        <div style="display: flex; gap: 10px; align-items: center; max-width: 300px;">
+                            <input type="number" class="form-control" value="28" min="1" max="60" style="flex: 1;">
+                            <span>+ gün</span>
+                        </div>
+                        <div class="form-help">Bu günden uzun süre açık kalan öneriler kırmızı gösterilir</div>
+                    </div>
+
+                    <div class="btn-group" style="justify-content: flex-end; margin-top: 30px;">
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='bakim.html'">İptal</button>
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 MAN Türkiye A.Ş. - FÖY Fikir Öneri Yönetimi Sistemi</p>
+    </footer>
+
+    <script>
+        document.getElementById('hedefForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const yil = document.getElementById('yil').value;
+            const hedef = document.getElementById('hedefSayi').value;
+
+            if (confirm(`${yil} yılı için kişi başı öneri hedefi ${hedef} olarak güncellenecek. Onaylıyor musunuz?`)) {
+                alert('✅ Hedef başarıyla güncellendi!');
+                window.location.href = 'bakim.html';
+            }
+        });
+    </script>
+</body>
+</html>

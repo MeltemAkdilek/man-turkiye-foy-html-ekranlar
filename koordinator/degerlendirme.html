@@ -293,35 +293,24 @@
             </div>
         </div>
 
-        <!-- Beklenen Kazançlar -->
+        <!-- Kazanç -->
         <div class="card">
             <div class="card-header">
-                💰 Beklenen Kazançlar
+                💰 Kazanç
             </div>
             <div class="card-body">
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>Kategori</th>
-                                <th>Tutar</th>
+                                <th>Kazanç</th>
                                 <th>Açıklama</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>💼 İşçilik</td>
-                                <td><strong>€12,500</strong></td>
-                                <td>Yıllık zaman tasarrufu</td>
-                            </tr>
-                            <tr>
-                                <td>✅ Kalite</td>
-                                <td><strong>€3,200</strong></td>
-                                <td>Hata azalması</td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><strong>TOPLAM BEKLENEN KAZANÇ</strong></td>
-                                <td><strong style="color: var(--success-color); font-size: 18px;">€15,700</strong></td>
+                                <td><strong>15.7</strong></td>
+                                <td>Yıllık zaman tasarrufu ve hata azalması</td>
                             </tr>
                         </tbody>
                     </table>
@@ -405,20 +394,14 @@
                     <h4 style="margin-bottom: 15px; color: var(--success-color);">✅ Gerçekleştirme Bilgileri</h4>
 
                     <div class="form-group">
-                        <label class="form-label">Uygulama Notları</label>
-                        <textarea class="form-control" rows="4" placeholder="Önerinin nasıl uygulandığını açıklayınız"></textarea>
+                        <label class="form-label">Uygulama Notları (Opsiyonel)</label>
+                        <textarea class="form-control" rows="4" placeholder="Önerinin nasıl uygulandığını açıklayabilirsiniz (zorunlu değil)"></textarea>
+                        <div class="form-help">Bu alan opsiyoneldir, zorunlu değildir</div>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Gerçekleşen Kazançlar (Opsiyonel)</label>
                         <input type="text" class="form-control" placeholder="Ölçülen gerçek kazançlar">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            <input type="checkbox" style="margin-right: 8px;">
-                            Ek destek bölümü ekle
-                        </label>
                     </div>
 
                     <div class="form-group">
@@ -477,24 +460,56 @@
                             <option value="5">IT</option>
                             <option value="6">İnsan Kaynakları</option>
                         </select>
+                        <div class="form-help">Transfer edilen birime otomatik mail gidecektir</div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label required">Transfer Nedeni</label>
-                        <textarea class="form-control" rows="4" placeholder="Neden bu departmana transfer edildiğini açıklayınız" required></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">
-                            <input type="checkbox" style="margin-right: 8px;">
-                            Kendi bölüm sorumluluğumu kapat (hem transfer hem kapatma)
-                        </label>
-                        <div class="form-help">İşaretlenirse: hem kendi kısmınız kapatılır hem de yeni birime aktarılır</div>
+                        <label class="form-label required">Transfer Açıklaması/Notu</label>
+                        <textarea class="form-control" rows="4" placeholder="Transfer nedeni veya açıklama giriniz" required></textarea>
+                        <div class="form-help">Transfer ediyorsanız not/açıklama alanı kullanılır</div>
                     </div>
 
                     <div class="btn-group" style="justify-content: flex-end; margin-top: 20px;">
                         <button type="button" class="btn btn-secondary" onclick="cancelDecision()">İptal</button>
-                        <button type="button" class="btn btn-warning">Transfer Et</button>
+                        <button type="button" class="btn btn-warning">Transfer Et ve Mail Gönder</button>
+                    </div>
+
+                    <!-- Mail Şablonu: Transfer -->
+                    <div class="card mt-20" style="border-left: 4px solid #ffc107;">
+                        <div class="card-header" style="background: #fff3cd; color: #856404; cursor: pointer;" onclick="document.getElementById('mailSablonuTransfer').style.display = document.getElementById('mailSablonuTransfer').style.display === 'none' ? 'block' : 'none'">
+                            📧 Mail Şablonu: FÖY Aktarım (Tıklayarak görüntüleyin)
+                        </div>
+                        <div class="card-body" id="mailSablonuTransfer" style="display: none; background: #f8f9fa; font-size: 13px; line-height: 1.8;">
+                            <p><strong>Konu:</strong> Yeni Atanan Öneri – FÖY Sistemi</p>
+                            <p>Merhaba,</p>
+                            <p>Size atanan bir önerimiz bulunmaktadır. Lütfen FÖY sisteminden kontrol ediniz.</p>
+                            <p><strong>FÖY Sistem Linki:</strong><br>
+                            (→ Buraya link eklenecek)</p>
+                            <p>Saygılarımızla,<br>
+                            <strong>(Gönderen Birim)</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gerçekleştirilemedi Formu -->
+                <div id="form-gerceklestirilemedi" class="action-form">
+                    <h4 style="margin-bottom: 15px; color: var(--danger-color);">❌ Gerçekleştirilememe Bilgileri</h4>
+
+                    <div class="form-group">
+                        <label class="form-label required">Gerçekleştirilememe Nedeni</label>
+                        <textarea class="form-control" rows="4" placeholder="Önerinin neden gerçekleştirilemediğini açıklayınız" required></textarea>
+                        <div class="form-help">Bu bilgi kayıt altına alınacak ve raporlarda görünecektir</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Dosya Ekle (Opsiyonel)</label>
+                        <input type="file" class="form-control" multiple>
+                        <div class="form-help">Gerçekleştirilememe ile ilgili dokümanlar ekleyebilirsiniz</div>
+                    </div>
+
+                    <div class="btn-group" style="justify-content: flex-end; margin-top: 20px;">
+                        <button type="button" class="btn btn-secondary" onclick="cancelDecision()">İptal</button>
+                        <button type="button" class="btn btn-danger">Gerçekleştirilemedi Olarak İşaretle</button>
                     </div>
                 </div>
             </div>

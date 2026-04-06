@@ -206,11 +206,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label">Başlangıç Tarihi</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" id="baslangicTarihi">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Bitiş Tarihi</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" id="bitisTarihi">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Açık Gün Durumu</label>
@@ -226,7 +226,16 @@
                         <input type="text" class="form-control" placeholder="Konu içinde ara">
                     </div>
                 </div>
-                <div class="btn-group">
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 12px;">
+                    <label style="margin: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; cursor: pointer; background: white; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color);">
+                        <input type="checkbox" id="tumKayitlardaAra" style="margin: 0; cursor: pointer;">
+                        <strong>Tüm arşiv kayıtlarında ara</strong> (Tarih filtresi olmadan)
+                    </label>
+                    <div class="form-help" style="margin: 0;">
+                        <span id="tarihFiltreAciklama">Sadece tarih aralığı içinde arama yapılır.</span>
+                    </div>
+                </div>
+                <div class="btn-group" style="margin-top: 15px;">
                     <button class="btn btn-primary">🔍 Filtrele</button>
                     <button class="btn btn-secondary">🔄 Temizle</button>
                     <button class="btn btn-success">📥 Excel İndir</button>
@@ -289,7 +298,11 @@
                                 <td>29.03.2026</td>
                                 <td>Emre DEMİR</td>
                                 <td>Takım bakım süre azaltma</td>
-                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td>
+                                    <span class="badge badge-secondary">Bakım</span>
+                                    <span class="badge badge-secondary">Üretim</span>
+                                    <span class="badge badge-secondary">Lojistik</span>
+                                </td>
                                 <td><span class="badge badge-warning">Çalışılıyor</span></td>
                                 <td><span class="status-green">3 gün</span></td>
                                 <td>
@@ -369,7 +382,10 @@
                                 <td>20.03.2026</td>
                                 <td>Can AKIN</td>
                                 <td>Ergonomi düzenlemesi</td>
-                                <td><span class="badge badge-secondary">İK</span></td>
+                                <td>
+                                    <span class="badge badge-secondary">İK</span>
+                                    <span class="badge badge-secondary">Bakım</span>
+                                </td>
                                 <td><span class="badge badge-warning">Çalışılıyor</span></td>
                                 <td><span class="status-yellow">12 gün</span></td>
                                 <td>
@@ -401,7 +417,12 @@
                                 <td>15.03.2026</td>
                                 <td>Mustafa KARA</td>
                                 <td>Enerji optimizasyonu</td>
-                                <td><span class="badge badge-secondary">Bakım</span></td>
+                                <td>
+                                    <span class="badge badge-secondary">Bakım</span>
+                                    <span class="badge badge-secondary">Üretim</span>
+                                    <span class="badge badge-secondary">IT</span>
+                                    <span class="badge badge-secondary">Finans</span>
+                                </td>
                                 <td><span class="badge badge-warning">Çalışılıyor</span></td>
                                 <td><span class="status-red">17 gün</span></td>
                                 <td>
@@ -503,6 +524,31 @@
                     window.location.href = `foy-olustur.html?edit=${oneriNo}`;
                 }
             });
+        });
+
+        // Tüm arşiv kayıtlarında ara checkbox kontrolü
+        document.getElementById('tumKayitlardaAra').addEventListener('change', function() {
+            const aciklama = document.getElementById('tarihFiltreAciklama');
+            const baslangicTarihi = document.getElementById('baslangicTarihi');
+            const bitisTarihi = document.getElementById('bitisTarihi');
+
+            if (this.checked) {
+                aciklama.textContent = 'Tarih filtreleri göz ardı edilecek, tüm arşiv kayıtlarında arama yapılacaktır.';
+                aciklama.style.color = 'var(--warning-color)';
+                aciklama.style.fontWeight = 'bold';
+                baslangicTarihi.disabled = true;
+                bitisTarihi.disabled = true;
+                baslangicTarihi.style.opacity = '0.5';
+                bitisTarihi.style.opacity = '0.5';
+            } else {
+                aciklama.textContent = 'Sadece tarih aralığı içinde arama yapılır.';
+                aciklama.style.color = '';
+                aciklama.style.fontWeight = '';
+                baslangicTarihi.disabled = false;
+                bitisTarihi.disabled = false;
+                baslangicTarihi.style.opacity = '';
+                bitisTarihi.style.opacity = '';
+            }
         });
     </script>
 </body>
